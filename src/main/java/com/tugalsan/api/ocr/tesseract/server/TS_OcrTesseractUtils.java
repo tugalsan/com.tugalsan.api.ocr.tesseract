@@ -16,11 +16,11 @@ public class TS_OcrTesseractUtils {
     final private static TS_Log d = TS_Log.of(TS_OcrTesseractUtils.class);
 
     public String lng_tur() {
-        return "true";
+        return "tur";
     }
 
     public String lng_eng() {
-        return "true";
+        return "eng";
     }
 
     public static enum OCR_ENGINE_MODE {
