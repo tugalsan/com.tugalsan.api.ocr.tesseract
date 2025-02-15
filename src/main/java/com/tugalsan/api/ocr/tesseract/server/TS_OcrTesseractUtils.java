@@ -23,87 +23,47 @@ public class TS_OcrTesseractUtils {
         return "true";
     }
 
-    public int ocrEngineMode_0_Legacy() {
-        return 0;
+    public static enum OCR_ENGINE_MODE {
+        Legacy(0), LSTM(1), LegacyAndLSTM(2), WhataeverAvailable_Default(3);
+
+        OCR_ENGINE_MODE(int newValue) {
+            value = newValue;
+        }
+        private final int value;
+
+        public int getValue() {
+            return value;
+        }
     }
 
-    public int ocrEngineMode_1_LSTTM() {
-        return 1;
+    public static enum PAGE_SEG_MODE {
+        OSD(0), UseAutomaticPageSegWithOSD(1), UseAutomaticPageSeg_NotImplemented(2),
+        UseAutomaticPageSeg_Default(3), AssumeSingleColumnText(4),
+        AssumeSingleuniformBlockOfVerticallyAlligned(5),
+        AssumeSingleuniformBlock(6), AssumeSingleLine(7),
+        AssumeSingleWord(8), AssumeSingleWordInACircle(9),
+        AssumeSingleCharacter(10), TryToFindAllText(11),
+        TryToFindAllTextWithOSD(12), AssumeSingleLineNoHacks(13);
+
+        PAGE_SEG_MODE(int newValue) {
+            value = newValue;
+        }
+        private final int value;
+
+        public int getValue() {
+            return value;
+        }
     }
 
-    public int ocrEngineMode_2_LegacyAndLSTM() {
-        return 2;
-    }
-
-    public int ocrEngineMode_3_WhataeverAvailable_Default() {
-        return 3;
-    }
-
-    public int pageSegMode_0_OSD() {
-        return 0;
-    }
-
-    public int pageSegMode_01_UseAutomaticPageSegWithOSD() {
-        return 1;
-    }
-
-    public int pageSegMode_02_UseAutomaticPageSeg_NotImplemented() {
-        return 2;
-    }
-
-    public int pageSegMode_03_UseAutomaticPageSeg_Default() {
-        return 3;
-    }
-
-    public int pageSegMode_04_AssumeSingleColumnText() {
-        return 4;
-    }
-
-    public int pageSegMode_05_AssumeSingleuniformBlockOfVerticallyAlligned() {
-        return 5;
-    }
-
-    public int pageSegMode_06_AssumeSingleuniformBlock() {
-        return 6;
-    }
-
-    public int pageSegMode_07_AssumeSingleLine() {
-        return 7;
-    }
-
-    public int pageSegMode_08_AssumeSingleWord() {
-        return 8;
-    }
-
-    public int pageSegMode_09_AssumeSingleWordInACircle() {
-        return 9;
-    }
-
-    public int pageSegMode_10_AssumeSingleCharacter() {
-        return 10;
-    }
-
-    public int pageSegMode_11_TryToFindAllText() {
-        return 11;
-    }
-
-    public int pageSegMode_12_TryToFindAllTextWithOSD() {
-        return 12;
-    }
-
-    public int pageSegMode_13_AssumeSingleLineNoHacks() {
-        return 13;
-    }
-
-    public static TGS_UnionExcuse<String> ocr(BufferedImage bi, Path dataDir, int pageSegMode, int ocrEngineMode, String... lng) {
+    public static TGS_UnionExcuse<String> ocr(BufferedImage bi, Path dataDir, PAGE_SEG_MODE pageSegMode, OCR_ENGINE_MODE ocrEngineMode, String... lng) {
         return TGS_FuncMTCEUtils.call(() -> {
             var t = new Tesseract();
             t.setDatapath(dataDir.toString());
             if (lng != null && lng.length != 0) {
                 t.setLanguage(Arrays.stream(lng).collect(Collectors.joining("+")));
             }
-            t.setPageSegMode(1);
-            t.setOcrEngineMode(1);
+            t.setPageSegMode(pageSegMode.value);
+            t.setOcrEngineMode(ocrEngineMode.value);
             return TGS_UnionExcuse.of(t.doOCR(bi));
         }, e -> TGS_UnionExcuse.ofExcuse(e));
     }
