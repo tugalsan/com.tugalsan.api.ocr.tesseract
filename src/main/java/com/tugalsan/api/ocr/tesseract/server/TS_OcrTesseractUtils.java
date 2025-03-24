@@ -1,6 +1,6 @@
 package com.tugalsan.api.ocr.tesseract.server;
 
-import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
+import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
 import com.tugalsan.api.log.server.TS_Log;
 import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import java.awt.image.BufferedImage;
@@ -56,7 +56,7 @@ public class TS_OcrTesseractUtils {
     }
 
     public static TGS_UnionExcuse<String> ocr(BufferedImage bi, Path dataDir, PAGE_SEG_MODE pageSegMode, OCR_ENGINE_MODE ocrEngineMode, String... lng) {
-        return TGS_FuncMTCEUtils.call(() -> {
+        return TGS_FuncMTCUtils.call(() -> {
             var t = new Tesseract();
             t.setDatapath(dataDir.toString());
             if (lng != null && lng.length != 0) {
