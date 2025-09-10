@@ -6,6 +6,7 @@ import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import net.sourceforge.tess4j.Tesseract;
 
