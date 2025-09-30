@@ -1,14 +1,13 @@
 package com.tugalsan.api.ocr.tesseract.server;
 
-import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
-import com.tugalsan.api.log.server.TS_Log;
-import com.tugalsan.api.union.client.TGS_UnionExcuse;
-import java.awt.image.BufferedImage;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import net.sourceforge.tess4j.Tesseract;
+import module com.tugalsan.api.function;
+import module com.tugalsan.api.log;
+import module com.tugalsan.api.union;
+import module java.desktop;
+import module tess4j;
+import java.util.*;
+import java.nio.file.*;
+import java.util.stream.*;
 
 public class TS_OcrTesseractUtils {
 
